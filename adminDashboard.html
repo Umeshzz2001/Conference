@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin Dashboard - IRC 2024</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/conference.css" rel="stylesheet">
+    
+    <style>
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .dashboard-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .section-header {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .qr-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .qr-actions a {
+            text-decoration: none;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between">
+                    <p class="mb-0">
+                      <strong class="text-dark">IRC 2024 - Admin Dashboard</strong>
+                    </p>
+                    <p class="mb-0">
+                        <img src="images/Untitled1.png" alt="ITUM Logo" class="me-2" style="height: 40px;">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Panel -->
+            <div class="col-lg-4 left-panel">
+                <div class="text-center">
+                    <h2>WELCOME ADMIN</h2><br>
+                    <h2>John Doe</h2> <!-- Static admin name -->
+                </div>
+                <div class="mt-5">
+                    <ul class="list-unstyled">
+                        <li class="dark-font mb-3"><i class="bi bi-person me-3"></i>John Doe</li>
+                        <li class="dark-font mb-3"><i class="bi bi-envelope me-3"></i>johndoe@example.com</li>
+                        <li class="dark-font mb-3"><i class="bi bi-phone me-3"></i>+1 234 567 890</li>
+                    </ul>
+                </div>
+
+                <!-- Register New Admin Form -->
+                <div class="dashboard-box">
+                    <h5 class="section-header" style="color: black;">Register New Admin</h5>
+                    <form id="register-admin-form">
+                        <div class="mb-3">
+                            <label for="new_admin_name" class="form-label" style="color: black;">Name</label>
+                            <input type="text" class="form-control" id="new_admin_name" required style="color: black;">
+                        </div>
+                        <div class="mb-3">
+                            <label for="new_admin_email" class="form-label" style="color: black;">Email</label>
+                            <input type="email" class="form-control" id="new_admin_email" required style="color: black;">
+                        </div>
+                        <div class="mb-3">
+                            <label for="new_admin_password" class="form-label" style="color: black;">Password</label>
+                            <input type="password" class="form-control" id="new_admin_password" required style="color: black;">
+                        </div>
+                        <div class="mb-3">
+                            <label for="new_admin_password" class="form-label" style="color: black;">Confirm Password</label>
+                            <input type="password" class="form-control" id="new_admin_password" required style="color: black;">
+                        </div>
+                        <div class="mb-3">
+                            <label for="new_admin_code" class="form-label" style="color: black;">Admin Code</label>
+                            <input type="text" class="form-control" id="new_admin_code" required style="color: black;">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register Admin</button>
+                    </form>
+                </div>
+
+
+
+            </div>
+
+            <!-- Right Panel -->
+            <div class="col-lg-8 right-panel">
+                <!-- Participant Management Section -->
+                <div class="dashboard-box">
+                    <h5 class="section-header">Manage Participants</h5>
+                    <!-- Search Bar -->
+                    <div class="search-bar">
+                        <input type="text" id="search-email" class="form-control" placeholder="Search by Email" onkeyup="searchParticipants()">
+                    </div>
+
+                    <!-- Participant Table -->
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Participant Name</th>
+                                <th>Email</th>
+                                <th>Track</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="participants-list">
+                            <!-- Static Participants -->
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>janesmith@example.com</td>
+                                <td>AI Research</td>
+                                <td><button class="btn btn-danger btn-sm" onclick="removeParticipant(this)">Remove</button></td>
+                            </tr>
+                            <tr>
+                                <td>Robert Johnson</td>
+                                <td>robertjohnson@example.com</td>
+                                <td>Cloud Computing</td>
+                                <td><button class="btn btn-danger btn-sm" onclick="removeParticipant(this)">Remove</button></td>
+                            </tr>
+                            <tr>
+                                <td>Emily Davis</td>
+                                <td>emilydavis@example.com</td>
+                                <td>Data Science</td>
+                                <td><button class="btn btn-danger btn-sm" onclick="removeParticipant(this)">Remove</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Total Participants: <span id="participant-count">10</span></h4> <!-- Static count for now -->
+                </div>
+
+                <!-- Conference Details Section -->
+                <div class="dashboard-box">
+                    <h5 class="section-header">Update Conference Details</h5>
+                    <form id="conference-details-form">
+                        <div class="mb-3">
+                            <label for="conference_venue" class="form-label">Venue</label>
+                            <input type="text" class="form-control" id="conference_venue" value="Dr. T.A.G. Gunasekara Multifunctional Hall" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="conference_time" class="form-label">Time</label>
+                            <input type="text" class="form-control" id="conference_time" value="9:40 am - 10:10 am" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Details</button>
+                    </form>
+                </div>
+                <!-- Mark Attendance Button -->
+                <div class="dashboard-box">
+                    <h5 class="section-header" style="color: black;">Mark Attendance</h5>
+                    <button class="btn btn-primary" onclick="window.location.href='qrsacanner.html'">Scan QR to Mark Attendance</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="site-footer"> 
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-12 mt-5">
+                    <img src="images/MicrosoftTeams-image.png" alt="ITUM Logo" class="me-2" style="height: 40px;">
+                    <p class="copyright-text">Institute of Technology <br> University of Moratuwa</p>
+                </div>
+            </div>
+        </div>     
+    </footer>
+
+    <script>
+        // Simulate Participant Removal
+        function removeParticipant(button) {
+            const row = button.closest('tr');
+            row.remove();
+            // Update participant count
+            const participantCount = document.querySelectorAll('#participants-list tr').length;
+            document.getElementById('participant-count').textContent = participantCount;
+        }
+
+        // Handle Register Admin Form Submission
+        document.getElementById('register-admin-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('new_admin_name').value;
+            const email = document.getElementById('new_admin_email').value;
+            const password = document.getElementById('new_admin_password').value;
+
+            alert(`New admin registered:\nName: ${name}\nEmail: ${email}`);
+            // You can add more logic to store the new admin data (this is just a simulation)
+            // Clear form
+            document.getElementById('register-admin-form').reset();
+        });
+
+        // Handle Conference Details Form Submission
+        document.getElementById('conference-details-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const venue = document.getElementById('conference_venue').value;
+            const time = document.getElementById('conference_time').value;
+
+            alert(`Conference Details Updated:\nVenue: ${venue}\nTime: ${time}`);
+            // You can add more logic to store the new conference details (this is just a simulation)
+        });
+
+        // Search Participants by Email
+        function searchParticipants() {
+            const searchValue = document.getElementById('search-email').value.toLowerCase();
+            const rows = document.querySelectorAll('#participants-list tr');
+
+            rows.forEach(row => {
+                const emailCell = row.cells[1].textContent.toLowerCase();
+                if (emailCell.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
